@@ -1,0 +1,46 @@
+name: Standard CI/CD workflow for Kotlin Lambda SnapStart example
+
+on:
+  workflow_call:
+    inputs:
+      aws_region:
+        required: false
+        type: string
+        default: "eu-west-1"
+    secrets:
+      aws_account_id:
+        required: true
+      aws_access_key:
+        required: true
+      aws_secret_key:
+        required: true
+
+env:
+  # Supply target AWS account here
+  DEPLOY_TARGET_ACCOUNT: ${{ secrets.aws_account_id }}
+  DEPLOY_TARGET_REGION: ${{ inputs.aws_region }}
+  BUILD_NO: ${{ github.run_number }}
+
+jobs:
+  deploy-app:
+    runs-on: ubuntu-latest
+    name: apigw-lambda-snapstart deployment
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+      - name: Configure aws credentials
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          aws-access-key-id: ${{ secrets.aws_access_key }}
+          aws-secret-access-key: ${{ secrets.aws_secret_key }}
+          aws-region: ${{ inputs.aws_region }}
+
+      - name: DEPLOY build & deploy
+        uses: aws-actions/setup-sam@v2
+        run: |
+          sam build --use-container
+          sam deploy --no-confirm-changeset --no-fail-on-empty-changeset
