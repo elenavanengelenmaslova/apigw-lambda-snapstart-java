@@ -28,7 +28,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
+      - uses: aws-actions/setup-sam@v2
       - uses: actions/setup-node@v2
         with:
           node-version: "14"
@@ -40,7 +40,6 @@ jobs:
           aws-region: ${{ inputs.aws_region }}
 
       - name: DEPLOY build & deploy
-        uses: aws-actions/setup-sam@v2
         run: |
           sam build --use-container
           sam deploy --no-confirm-changeset --no-fail-on-empty-changeset
