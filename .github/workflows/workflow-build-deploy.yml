@@ -29,9 +29,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
-      - uses: aws-actions/setup-sam@v2
         with:
           node-version: "16"
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
+      - uses: aws-actions/setup-sam@v2
+
       - name: Configure aws credentials
         uses: aws-actions/configure-aws-credentials@master
         with:
