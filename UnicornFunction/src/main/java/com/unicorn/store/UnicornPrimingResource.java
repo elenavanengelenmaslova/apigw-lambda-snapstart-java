@@ -9,7 +9,7 @@ import org.crac.Core;
 import org.crac.Resource;
 import org.springframework.context.annotation.Configuration;
 
-@Configuration
+//@Configuration
 public class UnicornPrimingResource implements Resource {
 
     private final UnicornController unicornController;
