@@ -19,7 +19,7 @@ public class StreamLambdaHandler implements RequestStreamHandler {
 
     static {
         try {
-            LambdaContainerHandler.getContainerConfig().setInitializationTimeout(35_000);
+            LambdaContainerHandler.getContainerConfig().setInitializationTimeout(60_000);
             handler = new SpringBootProxyHandlerBuilder<AwsProxyRequest>()
                     .defaultProxy()
                     .asyncInit()
