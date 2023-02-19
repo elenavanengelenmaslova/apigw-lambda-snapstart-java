@@ -47,4 +47,4 @@ jobs:
       - name: DEPLOY build & deploy
         run: |
           sam build --use-container
-          sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name AWS-SAM-APIGW-Lambda-SnapStart --resolve-s3
+          sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name AWS-SAM-APIGW-Lambda-SnapStart --resolve-s3 --capabilities CAPABILITY_IAM
