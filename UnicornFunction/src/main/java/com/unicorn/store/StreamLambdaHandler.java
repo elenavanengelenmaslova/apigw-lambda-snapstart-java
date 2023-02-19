@@ -1,6 +1,7 @@
 package com.unicorn.store;
 
 import com.amazonaws.serverless.exceptions.ContainerInitializationException;
+import com.amazonaws.serverless.proxy.internal.LambdaContainerHandler;
 import com.amazonaws.serverless.proxy.model.AwsProxyRequest;
 import com.amazonaws.serverless.proxy.model.AwsProxyResponse;
 import com.amazonaws.serverless.proxy.spring.SpringBootLambdaContainerHandler;
@@ -18,6 +19,7 @@ public class StreamLambdaHandler implements RequestStreamHandler {
 
     static {
         try {
+            LambdaContainerHandler.getContainerConfig().setInitializationTimeout(35_000);
             handler = new SpringBootProxyHandlerBuilder<AwsProxyRequest>()
                     .defaultProxy()
                     .asyncInit()
